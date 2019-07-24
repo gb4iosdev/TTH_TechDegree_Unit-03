@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		860DFD9B22E2532D008AE96F /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860DFD9A22E2532D008AE96F /* Event.swift */; };
 		860DFD9E22E254CA008AE96F /* EventDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860DFD9D22E254CA008AE96F /* EventDataSource.swift */; };
+		86228EBD22E6588D00FE5746 /* ScorePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86228EBC22E6588D00FE5746 /* ScorePresenter.swift */; };
+		86228EC022E6597900FE5746 /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86228EBF22E6597900FE5746 /* SoundPlayer.swift */; };
+		86228EC322E659E300FE5746 /* IncorrectBuzz.wav in Resources */ = {isa = PBXBuildFile; fileRef = 86228EC122E659E200FE5746 /* IncorrectBuzz.wav */; };
+		86228EC422E659E300FE5746 /* CorrectDing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 86228EC222E659E300FE5746 /* CorrectDing.wav */; };
 		86851EF522E1C8C60011FF26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86851EF422E1C8C60011FF26 /* AppDelegate.swift */; };
 		86851EF722E1C8C60011FF26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86851EF622E1C8C60011FF26 /* ViewController.swift */; };
 		86851EFA22E1C8C60011FF26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86851EF822E1C8C60011FF26 /* Main.storyboard */; };
@@ -20,6 +24,10 @@
 /* Begin PBXFileReference section */
 		860DFD9A22E2532D008AE96F /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		860DFD9D22E254CA008AE96F /* EventDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDataSource.swift; sourceTree = "<group>"; };
+		86228EBC22E6588D00FE5746 /* ScorePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePresenter.swift; sourceTree = "<group>"; };
+		86228EBF22E6597900FE5746 /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
+		86228EC122E659E200FE5746 /* IncorrectBuzz.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = IncorrectBuzz.wav; sourceTree = "<group>"; };
+		86228EC222E659E300FE5746 /* CorrectDing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = CorrectDing.wav; sourceTree = "<group>"; };
 		86851EF122E1C8C60011FF26 /* BoutTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoutTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		86851EF422E1C8C60011FF26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		86851EF622E1C8C60011FF26 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,6 +58,24 @@
 			path = Medel;
 			sourceTree = "<group>";
 		};
+		86228EBE22E6595A00FE5746 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				86228EBF22E6597900FE5746 /* SoundPlayer.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		86228EC522E65B3600FE5746 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				86851EF622E1C8C60011FF26 /* ViewController.swift */,
+				86228EBC22E6588D00FE5746 /* ScorePresenter.swift */,
+				86AF453922E342DA00793E3F /* GameManager.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		86851EE822E1C8C60011FF26 = {
 			isa = PBXGroup;
 			children = (
@@ -70,11 +96,13 @@
 			isa = PBXGroup;
 			children = (
 				86851EF422E1C8C60011FF26 /* AppDelegate.swift */,
-				86851EF622E1C8C60011FF26 /* ViewController.swift */,
-				86AF453922E342DA00793E3F /* GameManager.swift */,
 				86851EF822E1C8C60011FF26 /* Main.storyboard */,
+				86228EC522E65B3600FE5746 /* Controllers */,
 				860DFD9C22E25335008AE96F /* Medel */,
+				86228EBE22E6595A00FE5746 /* Other */,
 				86851EFB22E1C8C70011FF26 /* Assets.xcassets */,
+				86228EC222E659E300FE5746 /* CorrectDing.wav */,
+				86228EC122E659E200FE5746 /* IncorrectBuzz.wav */,
 				86851EFD22E1C8C70011FF26 /* LaunchScreen.storyboard */,
 				86851F0022E1C8C80011FF26 /* Info.plist */,
 			);
@@ -139,7 +167,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86228EC422E659E300FE5746 /* CorrectDing.wav in Resources */,
 				86851EFF22E1C8C70011FF26 /* LaunchScreen.storyboard in Resources */,
+				86228EC322E659E300FE5746 /* IncorrectBuzz.wav in Resources */,
 				86851EFC22E1C8C70011FF26 /* Assets.xcassets in Resources */,
 				86851EFA22E1C8C60011FF26 /* Main.storyboard in Resources */,
 			);
@@ -153,6 +183,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				86851EF722E1C8C60011FF26 /* ViewController.swift in Sources */,
+				86228EC022E6597900FE5746 /* SoundPlayer.swift in Sources */,
+				86228EBD22E6588D00FE5746 /* ScorePresenter.swift in Sources */,
 				860DFD9E22E254CA008AE96F /* EventDataSource.swift in Sources */,
 				860DFD9B22E2532D008AE96F /* Event.swift in Sources */,
 				86851EF522E1C8C60011FF26 /* AppDelegate.swift in Sources */,
