@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    // MARK: - Outlets
+    // MARK: - IBOutlets
     @IBOutlet weak var eventDisplayButton1: UIButton!
     @IBOutlet weak var eventDisplayButton2: UIButton!
     @IBOutlet weak var eventDisplayButton3: UIButton!
@@ -38,13 +38,18 @@ class ViewController: UIViewController {
     
     var allButtonGroups: [[UIButton]] = []
 
-    
-    var buttonRoundedRadius = 15
-    
+    // MARK: - General Variables
     let debug = true    //Make the event's year visible
-    var timerMax = 20
-    var timerCount = 20 {
-        didSet { timerOutputLabel.text = String(timerCount) }
+    var buttonRoundedRadius = 15
+    var timerMax = 60
+    var timerCount = 60 {
+        didSet {
+            if timerCount == 60 {
+                timerOutputLabel.text = "01:00"
+            } else {
+            timerOutputLabel.text = "00:" + String(timerCount)
+            }
+        }
     }
     
     
@@ -73,69 +78,7 @@ class ViewController: UIViewController {
         
     }
     
-    //Detect Shake Gesture
-    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
-        
-        guard timer.isValid else { return }             //Only proceed if the play is live (timer is still running)
-        guard motion == .motionShake else { return }    //Should only respond to shake
-        
-        //Stop the timer
-        timer.invalidate()
-        
-        //Check the answers:
-        checkStatusForRound()
-    }
-    
-    func checkStatusForRound() {
-        
-        var nextRoundImageName: String
-        var checkScoreImageName: String
-        
-        //Disable the the move buttons
-        changeButtonState(for: .move, toState: .inactive)
-        
-        //Enable the event display buttons
-        changeButtonState(for: .display, toState: .active)
-        
-        //Check the results
-        let correctOrder: Bool = gameManager.eventsAreInCorrectOrder()
-        
-        if correctOrder {
-            soundPlayer.playCorrectAnswerSound()
-            nextRoundImageName = "next_round_success"
-            checkScoreImageName = "check_score_success"
-        } else {
-            soundPlayer.playIncorrectAnswerSound()
-            nextRoundImageName = "next_round_fail"
-            checkScoreImageName = "check_score_fail"
-        }
-        
-        //Check if this is the last round
-        if gameManager.isLastRound() {
-            checkScoreButton.setImage(UIImage(named: checkScoreImageName), for: .normal)
-            checkScoreButton.isHidden = false
-            
-        } else {
-            nextRoundButton.setImage(UIImage(named: nextRoundImageName), for: .normal)
-            nextRoundButton.isHidden = false
-        }
-        
-        instructionLabel.text = "Tap events to learn more"
-        
-        //Enable display buttons
-    }
-
-    
-    func displayEvents() {
-        
-        for (index, buttonGroup) in allButtonGroups.enumerated() {
-            let debugText = debug ? String(gameManager.currentRoundEvents[index].year) + "-" : ""
-            buttonGroup[0].setTitle(debugText + gameManager.currentRoundEvents[index].title, for: .normal)
-            buttonGroup[0].titleLabel?.numberOfLines = 0
-            buttonGroup[0].titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping  //Check if this is required???
-        }
-        
-    }
+    //MARK: - Round is in Play
     
     func nextRound() {
         
@@ -151,6 +94,7 @@ class ViewController: UIViewController {
         instructionLabel.text = "Shake to Complete"
         nextRoundButton.isHidden = true
         checkScoreButton.isHidden = true
+        timerOutputLabel.isHidden = false
         
         //Enable the move buttons
         changeButtonState(for: .move, toState: .active)
@@ -160,26 +104,38 @@ class ViewController: UIViewController {
         
     }
     
-    func initializeButtonCollections() {
-        buttonGroup1 = [eventDisplayButton1, button1Down]
-        buttonGroup2 = [eventDisplayButton2, button2Up, button2Down]
-        buttonGroup3 = [eventDisplayButton3, button3Up, button3Down]
-        buttonGroup4 = [eventDisplayButton4, button4Up]
-        allButtonGroups = [buttonGroup1, buttonGroup2, buttonGroup3, buttonGroup4]
+    // Load the current event titles into the display buttons
+    func displayEvents() {
+        
+        for (index, buttonGroup) in allButtonGroups.enumerated() {
+            let debugText = debug ? String(gameManager.currentRoundEvents[index].year) + ": " : ""
+            buttonGroup[0].setTitle(debugText + gameManager.currentRoundEvents[index].title, for: .normal)
+            buttonGroup[0].titleLabel?.numberOfLines = 0
+            //buttonGroup[0].titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping  //Check if this is required???
+        }
+        
     }
     
-    //MARK: - IBActions
-    
-    @IBAction func displayButtonPressed(_ sender: UIButton) {
-        
-        print("Button Group is\(sender.tag)")
-        //Future functionality to enable buttons for segue to web page
-        if let url = gameManager.urlForButtonGroup(sender.tag) {
-            UIApplication.shared.open(url)
+    func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            //update timer output label
+            self.timerCount -= 1
+            
+            if self.timerCount == 0 {
+                
+                //Stop the timer & hide label
+                timer.invalidate()
+                self.timerOutputLabel.isHidden = true
+                
+                
+                //Check game status
+                self.checkStatusForRound()
+                
+            }
         }
     }
     
-
+    //When a move button is pressed, reflect the change in the gameManager event list and update the UI
     @IBAction func moveButtonPressed(_ sender: UIButton) {
         
         //Determine displayButton from/to
@@ -188,9 +144,72 @@ class ViewController: UIViewController {
         gameManager.swap(fromTo: fromTo)
         
         //Refresh the UI
-
+        
         displayEvents()
+        
+    }
+    
+    
+    //MARK: - Round Stopped
+    
+    //Detect Shake Gesture
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        
+        guard timer.isValid else { return }             //Only proceed if the play is live (timer is still running)
+        guard motion == .motionShake else { return }    //Should only respond to shake
+        
+        //Stop the timer & hide label
+        timer.invalidate()
+        timerOutputLabel.isHidden = true
+        
+        //Check the answers:
+        checkStatusForRound()
+    }
+    
+    //Check the event ordering, freeze move buttons, enable web function for display buttons
+    func checkStatusForRound() {
+        
+        var nextRoundImageName: String
+        var checkScoreImageName: String
+        
+        //Disable the move buttons
+        changeButtonState(for: .move, toState: .inactive)
+        
+        //Enable the event display buttons
+        changeButtonState(for: .display, toState: .active)
+        
+        //Check the results & set UI accordingly
+        let correctOrder: Bool = gameManager.eventsAreInCorrectOrder()
+        
+        if correctOrder {
+            soundPlayer.playCorrectAnswerSound()
+            nextRoundImageName = "next_round_success"
+            checkScoreImageName = "checkScore_success"
+        } else {
+            soundPlayer.playIncorrectAnswerSound()
+            nextRoundImageName = "next_round_fail"
+            checkScoreImageName = "checkScore_fail"
+        }
+        
+        //Check if this is the last round
+        if gameManager.isLastRound() {
+            checkScoreButton.setImage(UIImage(named: checkScoreImageName), for: .normal)
+            checkScoreButton.isHidden = false
+            
+        } else {
+            nextRoundButton.setImage(UIImage(named: nextRoundImageName), for: .normal)
+            nextRoundButton.isHidden = false
+        }
+        
+        instructionLabel.text = "Tap events to learn more"
+    }
 
+    //Show web page for event when display button is pressed
+    @IBAction func displayButtonPressed(_ sender: UIButton) {
+        
+        if let url = gameManager.urlForButtonGroup(sender.tag) {
+            UIApplication.shared.open(url)
+        }
     }
     
     @IBAction func nextRoundButtonPressed(_ sender: UIButton) {
@@ -198,12 +217,19 @@ class ViewController: UIViewController {
         nextRound()
     }
     
-}
-
-extension ViewController {
     
     //MARK: - Helper Functions
     
+    //Add buttons to convenience collections with display button first in each array
+    func initializeButtonCollections() {
+        buttonGroup1 = [eventDisplayButton1, button1Down]
+        buttonGroup2 = [eventDisplayButton2, button2Up, button2Down]
+        buttonGroup3 = [eventDisplayButton3, button3Up, button3Down]
+        buttonGroup4 = [eventDisplayButton4, button4Up]
+        allButtonGroups = [buttonGroup1, buttonGroup2, buttonGroup3, buttonGroup4]
+    }
+    
+    //Based on button pressed, determine which button groups the event needs to transfer from/to
     func getFromToButtonIDsFor(_ button: UIButton) -> (Int, Int)? {
         //Given the move button pressed, return the implied from button and to display button numbers
         switch button {
@@ -217,6 +243,7 @@ extension ViewController {
         }
     }
     
+    //Set button images for selected state
     func setMoveButtonSelectionImages() {
         button1Down.setImage(UIImage(named: "down_full_selected"),  for: .selected)
         button2Up.setImage  (UIImage(named: "up_half_selected"),    for: .selected)
@@ -226,21 +253,17 @@ extension ViewController {
         button4Up.setImage  (UIImage(named: "up_full_selected"),    for: .selected)
     }
     
+    // Round the top left and bottom left corners of the display buttons in order to match the arrow buttons
     func roundDisplayButtonCorners() {
         for buttonGroup in allButtonGroups {
-            roundCorners(of: buttonGroup[0], withRadius: 5)
+            let path = UIBezierPath(roundedRect: buttonGroup[0].bounds, byRoundingCorners: [.topLeft, .bottomLeft], cornerRadii: CGSize(width: 5, height: 5))
+            let mask = CAShapeLayer()
+            mask.path = path.cgPath
+            buttonGroup[0].layer.mask = mask
         }
     }
-
     
-    //Function to round top left and right corners of the display buttons in order to match the arrow buttons
-    func roundCorners(of view: UIView, withRadius radius: Int) {
-        let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: [.topLeft, .bottomLeft], cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        view.layer.mask = mask
-    }
-    
+    //Enable/Disable move and display buttons to support the game state
     func changeButtonState(for buttonType: ButtonType, toState state: ButtonState) {
         
         var isEnabled: Bool = false
@@ -255,31 +278,13 @@ extension ViewController {
                 buttonGroup[0].isUserInteractionEnabled = isEnabled
             case .move:
                 for index in 1..<buttonGroup.count {
-                    buttonGroup[index].isUserInteractionEnabled = isEnabled
+                    buttonGroup[index].isEnabled = isEnabled
                 }
             }
         }
     }
-    
-    // MARK: - Timer
-    
-    func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            //update timer output label
-            self.timerCount -= 1
-            
-            if self.timerCount == 0 {
-                
-                //Stop the timer, update game statistics, load next round:
-                timer.invalidate()
-                
-                //Need to perform the same action here as the one where the user shakes the phone
-                self.checkStatusForRound()
-                
-            }
-        }
-    }
 }
+
 
 extension ViewController: ScoreDisplayDelegate {
     
@@ -295,7 +300,6 @@ extension ViewController: ScoreDisplayDelegate {
     func startNewGame() {
         
         gameManager.newGame()
-        
         nextRound()
     }
 }

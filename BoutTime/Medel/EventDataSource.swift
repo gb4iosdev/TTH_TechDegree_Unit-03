@@ -48,6 +48,29 @@ struct EventDataSource {
         Event(title: "Hurricane Sandy", year: 2012, url: "https://en.wikipedia.org/wiki/Hurricane_Sandy"),
         Event(title: "Season 8, Game of Thrones", year: 2019, url: "https://en.wikipedia.org/wiki/Game_of_Thrones_(season_8)"),
         
+        //  Attribution: https://medium.com/@audrey96928626/the-top-20-biggest-man-made-disasters-37f7f2a1ed2
+        Event(title: "Hindenburg Airship", year: 1937, url: "https://en.wikipedia.org/wiki/Hindenburg_disaster"),
+        Event(title: "Jilin Chemical Explosion", year: 2005, url: "https://en.wikipedia.org/wiki/2005_Jilin_chemical_plant_explosions"),
+        Event(title: "Tennesse Coal Ash Spill", year: 2008, url: "https://en.wikipedia.org/wiki/Kingston_Fossil_Plant_coal_fly_ash_slurry_spill"),
+        Event(title: "Kuwaiti oil fires", year: 1991, url: "https://en.wikipedia.org/wiki/Kuwaiti_oil_fires"),
+        Event(title: "Exxon Valdez Oil Spill", year: 1989, url: "https://en.wikipedia.org/wiki/Exxon_Valdez_oil_spill"),
+        
+        //  Attribution: https://list25.com/25-biggest-man-made-environmental-disasters-in-history/3/
+        Event(title: "Baia Mare Water Cyanide Contamination", year: 2000, url: "https://en.wikipedia.org/wiki/2000_Baia_Mare_cyanide_spill"),
+        Event(title: "Castle Bravo Nuclear Tests", year: 1954, url: "https://en.wikipedia.org/wiki/Castle_Bravo"),
+        Event(title: "Minamata Poisonings", year: 1956, url: "https://en.wikipedia.org/wiki/Minamata_disease"),
+        Event(title: "Three Mile Island Nuclear Explosion", year: 1979, url: "https://en.wikipedia.org/wiki/Three_Mile_Island_accident"),
+        Event(title: "Darvaza gas crater (Door to Hell)", year: 1971, url: "https://en.wikipedia.org/wiki/Darvaza_gas_crater"),
+        Event(title: "Amoco Cadiz Oil Tanker spill", year: 1978, url: "https://en.wikipedia.org/wiki/Amoco_Cadiz"),
+        
+        //  Attribution: https://www.infoplease.com/world/disasters/man-made
+        Event(title: "Dhaka garment factory collapse", year: 2013, url: "https://en.wikipedia.org/wiki/2013_Dhaka_garment_factory_collapse"),
+        Event(title: "Boston Marathon Bombing", year: 2013, url: "https://en.wikipedia.org/wiki/Boston_Marathon_bombing"),
+        Event(title: "World Trade Center truck bomb", year: 1993, url: "https://en.wikipedia.org/wiki/1993_World_Trade_Center_bombing"),
+        Event(title: "ARA San Juan submarine disappearance", year: 2017, url: "https://en.wikipedia.org/wiki/ARA_San_Juan_(S-42)"),
+        
+
+        
     ]
     
 }

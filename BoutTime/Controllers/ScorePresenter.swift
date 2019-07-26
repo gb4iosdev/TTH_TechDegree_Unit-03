@@ -24,13 +24,14 @@ class ScorePresenter: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Update the UI to reflect round wins out of total rounds
         if let wins = roundWins, let totalRounds = self.totalRounds {
             gameScoreLabel.text = "\(String(wins))/\(String(totalRounds))"
         }
         
     }
     
-    
+    //Dismiss this score View Controller and call function on the main View Controller to start a new game
     @IBAction func playAgainButtonPressed(_ sender: UIButton) {
         
         dismiss(animated: true, completion: nil)

@@ -14,20 +14,21 @@ class GameManager {
     let roundsInGame = 6
     var currentRoundEvents: [Event] = []
     var roundWins: Int = 0
-    var round: Int = 1
+    var round: Int = 0
     
+    //Swap events in currentRoundEvents array
     func swap(fromTo: (Int, Int)) {
-        print("Performing Swap from: \(fromTo.0) to \(fromTo.1).  Events Count: \(currentRoundEvents.count)")
         let tempItem = currentRoundEvents.remove(at: fromTo.0-1)
         currentRoundEvents.insert(tempItem, at: fromTo.1-1)
     }
     
+    //Return true & updates round wins if events are correctly ordered.  Note extracts and compares years to allow for same year ambiguity
     func eventsAreInCorrectOrder() -> Bool {
         var yearsInCorrectOrder: [Int] = []
         var yearsInUserOrder: [Int] = []
         var orderCorrect: Bool
         
-        //Capture order of current Events (this represents the user's order in the UI
+        //Capture order of current Events (this represents the user's order in the UI),  Extract the years
         for event in currentRoundEvents {
             yearsInUserOrder.append(event.year)
         }
@@ -56,8 +57,9 @@ class GameManager {
         roundWins = 0
     }
     
+    //shuffle allEvents, and extract eventsInRound array items & assign to currentRoundEvents
     func loadNewEvents() {
-        //shuffle allEvents and extract eventsInRound array items & assign to currentRoundEvents
+        
         EventDataSource.events.shuffle()
         currentRoundEvents.removeAll()
         currentRoundEvents = Array(EventDataSource.events.prefix(eventsInRound))
@@ -67,6 +69,7 @@ class GameManager {
         return round == roundsInGame
     }
     
+    //Return the URL object for the event, based on the event’s URL text.
     func urlForButtonGroup(_ buttonGroup: Int) -> URL? {
         return URL(string: currentRoundEvents[buttonGroup-1].url)
     }
