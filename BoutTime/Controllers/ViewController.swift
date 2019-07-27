@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     var allButtonGroups: [[UIButton]] = []
 
     // MARK: - General Variables
-    let debug = true    //Make the event's year visible
+    let debug = false    //True makes the event's year visible
     var buttonRoundedRadius = 15
     var timerMax = 60
     var timerCount = 60 {
@@ -211,6 +211,7 @@ class ViewController: UIViewController {
             UIApplication.shared.open(url)
         }
     }
+    
     
     @IBAction func nextRoundButtonPressed(_ sender: UIButton) {
         

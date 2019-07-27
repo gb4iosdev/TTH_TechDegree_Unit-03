@@ -68,9 +68,5 @@ struct EventDataSource {
         Event(title: "Boston Marathon Bombing", year: 2013, url: "https://en.wikipedia.org/wiki/Boston_Marathon_bombing"),
         Event(title: "World Trade Center truck bomb", year: 1993, url: "https://en.wikipedia.org/wiki/1993_World_Trade_Center_bombing"),
         Event(title: "ARA San Juan submarine disappearance", year: 2017, url: "https://en.wikipedia.org/wiki/ARA_San_Juan_(S-42)"),
-        
-
-        
     ]
-    
 }

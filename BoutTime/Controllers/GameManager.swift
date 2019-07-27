@@ -75,3 +75,7 @@ class GameManager {
     }
 
 }
+
+enum URLError: Error {
+    case invalidURL(description: String)
+}
