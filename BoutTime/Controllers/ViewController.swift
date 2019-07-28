@@ -11,10 +11,9 @@ import UIKit
 class ViewController: UIViewController {
     
     // MARK: - IBOutlets
-    @IBOutlet weak var eventDisplayButton1: UIButton!
-    @IBOutlet weak var eventDisplayButton2: UIButton!
-    @IBOutlet weak var eventDisplayButton3: UIButton!
-    @IBOutlet weak var eventDisplayButton4: UIButton!
+    @IBOutlet var eventDisplayButtons: [UIButton]!
+    @IBOutlet var moveDownButtons: [UIButton]!
+    @IBOutlet var moveUpButtons: [UIButton]!
     
     
     @IBOutlet weak var button1Down: UIButton!
@@ -28,18 +27,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var instructionLabel: UILabel!
     @IBOutlet weak var timerOutputLabel: UILabel!
     @IBOutlet weak var checkScoreButton: UIButton!
-    
-    
-    // MARK: - Convenience Collections
-    var buttonGroup1: [UIButton] = []
-    var buttonGroup2: [UIButton] = []
-    var buttonGroup3: [UIButton] = []
-    var buttonGroup4: [UIButton] = []
-    
-    var allButtonGroups: [[UIButton]] = []
 
     // MARK: - General Variables
-    let debug = false    //True makes the event's year visible
+    let debug = true    //True makes the event's year visible
     var buttonRoundedRadius = 15
     var timerMax = 60
     var timerCount = 60 {
@@ -62,9 +52,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Group the buttons into arrays for convenience
-        initializeButtonCollections()
         
         //Pre-load game sound effects
         soundPlayer.loadAnswerSounds()
@@ -107,13 +94,11 @@ class ViewController: UIViewController {
     // Load the current event titles into the display buttons
     func displayEvents() {
         
-        for (index, buttonGroup) in allButtonGroups.enumerated() {
+        for (index, button) in eventDisplayButtons.enumerated() {
             let debugText = debug ? String(gameManager.currentRoundEvents[index].year) + ": " : ""
-            buttonGroup[0].setTitle(debugText + gameManager.currentRoundEvents[index].title, for: .normal)
-            buttonGroup[0].titleLabel?.numberOfLines = 0
-            //buttonGroup[0].titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping  //Check if this is required???
+            button.setTitle(debugText + gameManager.currentRoundEvents[index].title, for: .normal)
+            button.titleLabel?.numberOfLines = 0
         }
-        
     }
     
     func startTimer() {
@@ -136,18 +121,17 @@ class ViewController: UIViewController {
     }
     
     //When a move button is pressed, reflect the change in the gameManager event list and update the UI
-    @IBAction func moveButtonPressed(_ sender: UIButton) {
-        
-        //Determine displayButton from/to
-        guard let fromTo: (fromDisplayButtonNumber: Int, toDisplayButtonNumber: Int) = getFromToButtonIDsFor(sender) else { return }
-        
-        gameManager.swap(fromTo: fromTo)
-        
-        //Refresh the UI
-        
+    @IBAction func moveDownButtonPressed(_ sender: UIButton) {
+        gameManager.swap(sender.tag, with: sender.tag + 1)
         displayEvents()
-        
     }
+    
+    
+    @IBAction func moveUpButtonPressed(_ sender: UIButton) {
+        gameManager.swap(sender.tag, with: sender.tag - 1)
+        displayEvents()
+    }
+    
     
     
     //MARK: - Round Stopped
@@ -221,29 +205,6 @@ class ViewController: UIViewController {
     
     //MARK: - Helper Functions
     
-    //Add buttons to convenience collections with display button first in each array
-    func initializeButtonCollections() {
-        buttonGroup1 = [eventDisplayButton1, button1Down]
-        buttonGroup2 = [eventDisplayButton2, button2Up, button2Down]
-        buttonGroup3 = [eventDisplayButton3, button3Up, button3Down]
-        buttonGroup4 = [eventDisplayButton4, button4Up]
-        allButtonGroups = [buttonGroup1, buttonGroup2, buttonGroup3, buttonGroup4]
-    }
-    
-    //Based on button pressed, determine which button groups the event needs to transfer from/to
-    func getFromToButtonIDsFor(_ button: UIButton) -> (Int, Int)? {
-        //Given the move button pressed, return the implied from button and to display button numbers
-        switch button {
-        case button1Down:   return (1,2)
-        case button2Up:     return (2,1)
-        case button2Down:   return (2,3)
-        case button3Up:     return (3,2)
-        case button3Down:   return (3,4)
-        case button4Up:     return (4,3)
-        default: return nil
-        }
-    }
-    
     //Set button images for selected state
     func setMoveButtonSelectionImages() {
         button1Down.setImage(UIImage(named: "down_full_selected"),  for: .selected)
@@ -256,11 +217,11 @@ class ViewController: UIViewController {
     
     // Round the top left and bottom left corners of the display buttons in order to match the arrow buttons
     func roundDisplayButtonCorners() {
-        for buttonGroup in allButtonGroups {
-            let path = UIBezierPath(roundedRect: buttonGroup[0].bounds, byRoundingCorners: [.topLeft, .bottomLeft], cornerRadii: CGSize(width: 5, height: 5))
+        for button in eventDisplayButtons {
+            let path = UIBezierPath(roundedRect: button.bounds, byRoundingCorners: [.topLeft, .bottomLeft], cornerRadii: CGSize(width: 5, height: 5))
             let mask = CAShapeLayer()
             mask.path = path.cgPath
-            buttonGroup[0].layer.mask = mask
+            button.layer.mask = mask
         }
     }
     
@@ -273,14 +234,20 @@ class ViewController: UIViewController {
             isEnabled = true
         }
         
-        for buttonGroup in allButtonGroups {
-            switch buttonType {
-            case .display:
-                buttonGroup[0].isUserInteractionEnabled = isEnabled
-            case .move:
-                for index in 1..<buttonGroup.count {
-                    buttonGroup[index].isEnabled = isEnabled
-                }
+        switch buttonType {
+        case .display:
+            for button in eventDisplayButtons {
+                button.isUserInteractionEnabled = isEnabled
+            }
+        case .move:
+            //move down buttons
+            for button in moveDownButtons {
+                button.isEnabled = isEnabled
+            }
+            
+            //move up buttons
+            for button in moveUpButtons {
+                button.isEnabled = isEnabled
             }
         }
     }

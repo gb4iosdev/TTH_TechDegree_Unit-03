@@ -17,9 +17,8 @@ class GameManager {
     var round: Int = 0
     
     //Swap events in currentRoundEvents array
-    func swap(fromTo: (Int, Int)) {
-        let tempItem = currentRoundEvents.remove(at: fromTo.0-1)
-        currentRoundEvents.insert(tempItem, at: fromTo.1-1)
+    func swap(_ from: Int, with to: Int) {
+        currentRoundEvents.swapAt(from - 1, to - 1)
     }
     
     //Return true & updates round wins if events are correctly ordered.  Note extracts and compares years to allow for same year ambiguity

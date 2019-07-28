@@ -44,7 +44,7 @@
                                                 </constraints>
                                                 <state key="normal" image="down_full"/>
                                                 <connections>
-                                                    <action selector="moveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zjk-dC-szw"/>
+                                                    <action selector="moveDownButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Zc-pE-6C6"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -78,7 +78,7 @@
                                                         </constraints>
                                                         <state key="normal" image="up_half"/>
                                                         <connections>
-                                                            <action selector="moveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kQV-9g-Gpw"/>
+                                                            <action selector="moveUpButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aV0-TB-7rR"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yjk-GL-9Yv" userLabel="button2Down">
@@ -88,7 +88,7 @@
                                                         </constraints>
                                                         <state key="normal" image="down_half"/>
                                                         <connections>
-                                                            <action selector="moveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6Oe-jj-Rhj"/>
+                                                            <action selector="moveDownButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5bd-dg-Tm8"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -127,7 +127,7 @@
                                                         </constraints>
                                                         <state key="normal" image="up_half"/>
                                                         <connections>
-                                                            <action selector="moveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h2i-W4-Mfe"/>
+                                                            <action selector="moveUpButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mKa-fu-K7U"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfj-ng-62D" userLabel="button3Down">
@@ -137,7 +137,7 @@
                                                         </constraints>
                                                         <state key="normal" image="down_half"/>
                                                         <connections>
-                                                            <action selector="moveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Kn-dy-vef"/>
+                                                            <action selector="moveDownButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZhM-VI-A0r"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -173,7 +173,7 @@
                                                 </constraints>
                                                 <state key="normal" image="up_full"/>
                                                 <connections>
-                                                    <action selector="moveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ccn-E6-UVL"/>
+                                                    <action selector="moveUpButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ilI-2A-Pwo"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -250,13 +250,19 @@
                         <outlet property="button3Up" destination="aXg-KT-e4V" id="Cff-KI-HJu"/>
                         <outlet property="button4Up" destination="6nv-o9-oKH" id="dYg-ZP-m5J"/>
                         <outlet property="checkScoreButton" destination="Thb-Kb-E5t" id="gR7-W6-NDu"/>
-                        <outlet property="eventDisplayButton1" destination="Y19-7g-Dm4" id="jCm-mg-wEh"/>
-                        <outlet property="eventDisplayButton2" destination="ZU4-kj-CXV" id="aq6-zB-Nyd"/>
-                        <outlet property="eventDisplayButton3" destination="gEu-2C-3gq" id="OA0-Fw-mjM"/>
-                        <outlet property="eventDisplayButton4" destination="txr-Au-w9J" id="3s0-hQ-HGD"/>
                         <outlet property="instructionLabel" destination="2Yd-ck-7lm" id="Wbl-4y-YAt"/>
                         <outlet property="nextRoundButton" destination="i6n-3Y-qxS" id="Vee-FO-bGU"/>
                         <outlet property="timerOutputLabel" destination="fPn-xZ-Uu3" id="gmB-1o-6ql"/>
+                        <outletCollection property="eventDisplayButtons" destination="Y19-7g-Dm4" collectionClass="NSMutableArray" id="VkF-o8-WXP"/>
+                        <outletCollection property="eventDisplayButtons" destination="ZU4-kj-CXV" collectionClass="NSMutableArray" id="xeU-qp-X7k"/>
+                        <outletCollection property="eventDisplayButtons" destination="gEu-2C-3gq" collectionClass="NSMutableArray" id="Mhc-VA-QpZ"/>
+                        <outletCollection property="eventDisplayButtons" destination="txr-Au-w9J" collectionClass="NSMutableArray" id="Ed1-4B-NF2"/>
+                        <outletCollection property="moveDownButtons" destination="yRJ-k0-tWF" collectionClass="NSMutableArray" id="34r-Dx-Bye"/>
+                        <outletCollection property="moveDownButtons" destination="yjk-GL-9Yv" collectionClass="NSMutableArray" id="5b0-NF-uvn"/>
+                        <outletCollection property="moveDownButtons" destination="jfj-ng-62D" collectionClass="NSMutableArray" id="3bm-yW-Or0"/>
+                        <outletCollection property="moveUpButtons" destination="Fzo-x6-aiP" collectionClass="NSMutableArray" id="A4R-hz-TNW"/>
+                        <outletCollection property="moveUpButtons" destination="aXg-KT-e4V" collectionClass="NSMutableArray" id="8xi-sW-eEH"/>
+                        <outletCollection property="moveUpButtons" destination="6nv-o9-oKH" collectionClass="NSMutableArray" id="1r6-EG-7aX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
