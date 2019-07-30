@@ -42,7 +42,6 @@ struct EventDataSource {
         Event(title: "Mount Saint Helens eruption", year: 1980, url: "https://en.wikipedia.org/wiki/Mount_St._Helens"),
         Event(title: "Deepwater Horizon oil spill", year: 2010, url: "https://en.wikipedia.org/wiki/Deepwater_Horizon_oil_spill"),
         Event(title: "Lusitania Sinking", year: 1915, url: "https://en.wikipedia.org/wiki/Sinking_of_the_RMS_Lusitania"),
-        Event(title: "Haiti earthquake", year: 2010, url: "https://en.wikipedia.org/wiki/2010_Haiti_earthquake"),
         Event(title: "Great Fire of London", year: 1666, url: "https://en.wikipedia.org/wiki/Great_Fire_of_London"),
         Event(title: "San Francisco earthquake", year: 1906, url: "https://en.wikipedia.org/wiki/1906_San_Francisco_earthquake"),
         Event(title: "Hurricane Sandy", year: 2012, url: "https://en.wikipedia.org/wiki/Hurricane_Sandy"),

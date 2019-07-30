@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     @IBOutlet var moveDownButtons: [UIButton]!
     @IBOutlet var moveUpButtons: [UIButton]!
     
-    
     @IBOutlet weak var button1Down: UIButton!
     @IBOutlet weak var button2Up:   UIButton!
     @IBOutlet weak var button2Down: UIButton!
@@ -29,7 +28,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var checkScoreButton: UIButton!
 
     // MARK: - General Variables
-    let debug = true    //True makes the event's year visible
+    let debug = false    //True makes the event's year visible
     var buttonRoundedRadius = 15
     var timerMax = 60
     var timerCount = 60 {
@@ -271,14 +270,3 @@ extension ViewController: ScoreDisplayDelegate {
         nextRound()
     }
 }
-
-enum ButtonState {
-    case active
-    case inactive
-}
-
-enum ButtonType {
-    case move
-    case display
-}
-

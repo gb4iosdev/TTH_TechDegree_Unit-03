@@ -18,6 +18,8 @@
 		86851EFA22E1C8C60011FF26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86851EF822E1C8C60011FF26 /* Main.storyboard */; };
 		86851EFC22E1C8C70011FF26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86851EFB22E1C8C70011FF26 /* Assets.xcassets */; };
 		86851EFF22E1C8C70011FF26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86851EFD22E1C8C70011FF26 /* LaunchScreen.storyboard */; };
+		86ABFB0822F0F3630045B728 /* ButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ABFB0722F0F3630045B728 /* ButtonState.swift */; };
+		86ABFB0A22F0F38E0045B728 /* ButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ABFB0922F0F38E0045B728 /* ButtonType.swift */; };
 		86AF453A22E342DA00793E3F /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AF453922E342DA00793E3F /* GameManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +37,8 @@
 		86851EFB22E1C8C70011FF26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		86851EFE22E1C8C70011FF26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86851F0022E1C8C80011FF26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		86ABFB0722F0F3630045B728 /* ButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonState.swift; sourceTree = "<group>"; };
+		86ABFB0922F0F38E0045B728 /* ButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonType.swift; sourceTree = "<group>"; };
 		86AF453922E342DA00793E3F /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +66,8 @@
 			isa = PBXGroup;
 			children = (
 				86228EBF22E6597900FE5746 /* SoundPlayer.swift */,
+				86ABFB0722F0F3630045B728 /* ButtonState.swift */,
+				86ABFB0922F0F38E0045B728 /* ButtonType.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -183,6 +189,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				86851EF722E1C8C60011FF26 /* ViewController.swift in Sources */,
+				86ABFB0A22F0F38E0045B728 /* ButtonType.swift in Sources */,
+				86ABFB0822F0F3630045B728 /* ButtonState.swift in Sources */,
 				86228EC022E6597900FE5746 /* SoundPlayer.swift in Sources */,
 				86228EBD22E6588D00FE5746 /* ScorePresenter.swift in Sources */,
 				860DFD9E22E254CA008AE96F /* EventDataSource.swift in Sources */,
